@@ -16,6 +16,7 @@ use Lunr\Ticks\PHPMailer\PHPMailer;
 use Lunr\Ticks\TracingControllerInterface;
 use Lunr\Ticks\TracingInfoInterface;
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -27,6 +28,8 @@ use PHPUnit\Framework\MockObject\MockObject;
  */
 abstract class PHPMailerTestCase extends LunrBaseTestCase
 {
+
+    use MockeryPHPUnitIntegration;
 
     /**
      * Instance of the EventLoggerInterface.
@@ -62,7 +65,7 @@ abstract class PHPMailerTestCase extends LunrBaseTestCase
         $this->logger = $this->getMockBuilder(EventLoggerInterface::class)->getMock();
 
         $this->controller = Mockery::mock(
-                         TracingControllerInterface::class,
+                                TracingControllerInterface::class,
                                 TracingInfoInterface::class,
                             );
 
