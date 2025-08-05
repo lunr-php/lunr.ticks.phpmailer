@@ -50,6 +50,16 @@ class PHPMailerBaseTest extends PHPMailerTestCase
     }
 
     /**
+     * Test that the action_function is set correctly.
+     *
+     * @covers Lunr\Ticks\PHPMailer\PHPMailer::__construct
+     */
+    public function testActionFunctionIsSetCorrectly(): void
+    {
+        $this->assertPropertySame('action_function', [ $this->class, 'afterSending' ]);
+    }
+
+    /**
      * Test that the setAnalyticsDetailLevel() sets properties correctly.
      *
      * @covers Lunr\Ticks\PHPMailer\PHPMailer::setAnalyticsDetailLevel
@@ -59,6 +69,20 @@ class PHPMailerBaseTest extends PHPMailerTestCase
         $this->class->setAnalyticsDetailLevel(AnalyticsDetailLevel::None);
 
         $this->assertPropertySame('analyticsDetailLevel', AnalyticsDetailLevel::None);
+    }
+
+    /**
+     * Test that the startTimestamp is unset correctly.
+     *
+     * @covers Lunr\Ticks\PHPMailer\PHPMailer::__destruct
+     */
+    public function testStartTimeIsUnsetCorrectly(): void
+    {
+        $this->setReflectionPropertyValue('startTimestamp', microtime(TRUE));
+
+        $this->class->__destruct();
+
+        $this->assertPropertyUnset('startTimestamp');
     }
 
 }
