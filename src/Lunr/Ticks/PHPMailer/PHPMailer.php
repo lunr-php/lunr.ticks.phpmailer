@@ -198,7 +198,7 @@ class PHPMailer extends BaseMailer
         }
 
         $tags = [
-            'type'   => $this->Mailer, // phpcs:ignore Lunr.NamingConventions.CamelCapsVariableName
+            'type'   => strtoupper($this->Mailer), // phpcs:ignore Lunr.NamingConventions.CamelCapsVariableName
             'status' => $isSent ? '200' : '400',
             'domain' => parse_url($this->Host, PHP_URL_HOST) ?? $this->Host, // phpcs:ignore Lunr.NamingConventions.CamelCapsVariableName
         ];
