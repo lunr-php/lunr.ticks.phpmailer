@@ -239,7 +239,7 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->event->expects($this->once())
                     ->method('addTags')
                     ->with([
-                        'type'   => 'smtp',
+                        'type'   => 'SMTP',
                         'status' => '200',
                         'domain' => 'localhost',
                     ]);
@@ -321,7 +321,7 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->event->expects($this->once())
                     ->method('addTags')
                     ->with([
-                        'type'   => 'smtp',
+                        'type'   => 'SMTP',
                         'status' => '200',
                         'domain' => 'localhost',
                     ]);
@@ -404,7 +404,7 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->event->expects($this->once())
                     ->method('addTags')
                     ->with([
-                        'type'   => 'smtp',
+                        'type'   => 'SMTP',
                         'status' => '200',
                         'domain' => 'smtp.example.com',
                     ]);
@@ -487,7 +487,7 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->event->expects($this->once())
                     ->method('addTags')
                     ->with([
-                        'type'   => 'smtp',
+                        'type'   => 'SMTP',
                         'status' => '200',
                         'domain' => 'smtp.example.com',
                     ]);
@@ -570,7 +570,7 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->event->expects($this->once())
                     ->method('addTags')
                     ->with([
-                        'type'   => 'smtp',
+                        'type'   => 'SMTP',
                         'status' => '200',
                         'domain' => 'smtp1.example.com',
                     ]);
@@ -653,7 +653,7 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->event->expects($this->once())
                     ->method('addTags')
                     ->with([
-                        'type'   => 'smtp',
+                        'type'   => 'SMTP',
                         'status' => '200',
                         'domain' => 'smtp1.example.com',
                     ]);
@@ -741,7 +741,7 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->event->expects($this->once())
                     ->method('addTags')
                     ->with([
-                        'type'   => 'smtp',
+                        'type'   => 'SMTP',
                         'status' => '200',
                         'domain' => 'localhost',
                     ]);
@@ -844,7 +844,7 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->event->expects($this->once())
                     ->method('addTags')
                     ->with([
-                        'type'   => 'smtp',
+                        'type'   => 'SMTP',
                         'status' => '200',
                         'domain' => 'localhost',
                     ]);
