@@ -768,7 +768,7 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
                         'executionTime'  => 1.12,
                         'url'            => 'localhost',
                         'requestHeaders' => '{"Content-Type":"text\/plain"}',
-                        'data'           => $string . 'E984...',
+                        'requestBody'    => $string . 'E984...',
                         'options'        => json_encode($options),
                     ]);
 
@@ -871,7 +871,7 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
                         'executionTime'  => 1.12,
                         'url'            => 'localhost',
                         'requestHeaders' => '{"Content-Type":"text\/plain"}',
-                        'data'           => $string . 'E984TBDFDAKJF',
+                        'requestBody'    => $string . 'E984TBDFDAKJF',
                         'options'        => json_encode($options),
                     ]);
 
