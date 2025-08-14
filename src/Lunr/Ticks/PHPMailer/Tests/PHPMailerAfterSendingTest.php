@@ -34,9 +34,6 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->setReflectionPropertyValue('MIMEBody', 'full mime body');
         $this->setReflectionPropertyValue('analyticsDetailLevel', AnalyticsDetailLevel::None);
 
-        $this->controller->shouldReceive('stopChildSpan')
-                         ->never();
-
         $this->logger->expects($this->never())
                      ->method('newEvent');
 
@@ -101,9 +98,6 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
 
         $this->event->expects($this->never())
                     ->method('record');
-
-        $this->controller->shouldReceive('stopChildSpan')
-                         ->never();
 
         $extra = [ 'smtp_transaction_id' => FALSE ];
 
@@ -172,9 +166,6 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->event->expects($this->never())
                     ->method('record');
 
-        $this->controller->shouldReceive('stopChildSpan')
-                         ->never();
-
         $extra = [ 'smtp_transaction_id' => FALSE ];
 
         $this->expectException('RuntimeException');
@@ -200,9 +191,6 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->setReflectionPropertyValue('MIMEHeader', 'Content-Type: text/plain');
         $this->setReflectionPropertyValue('MIMEBody', 'full mime body');
         $this->setReflectionPropertyValue('analyticsDetailLevel', AnalyticsDetailLevel::Info);
-
-        $this->controller->shouldReceive('stopChildSpan')
-                         ->once();
 
         $this->controller->shouldReceive('getTraceID')
                          ->once()
@@ -281,9 +269,6 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->setReflectionPropertyValue('MIMEHeader', 'Content-Type: text/plain');
         $this->setReflectionPropertyValue('MIMEBody', 'full mime body');
         $this->setReflectionPropertyValue('analyticsDetailLevel', AnalyticsDetailLevel::Info);
-
-        $this->controller->shouldReceive('stopChildSpan')
-                         ->once();
 
         $this->controller->shouldReceive('getTraceID')
                          ->once()
@@ -365,9 +350,6 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->setReflectionPropertyValue('Host', 'smtp://smtp.example.com:25');
         $this->setReflectionPropertyValue('analyticsDetailLevel', AnalyticsDetailLevel::Info);
 
-        $this->controller->shouldReceive('stopChildSpan')
-                         ->once();
-
         $this->controller->shouldReceive('getTraceID')
                          ->once()
                          ->andReturn('bc5bfcc7-8d8d-4e59-b4be-7453b97410d');
@@ -447,9 +429,6 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->setReflectionPropertyValue('MIMEBody', 'full mime body');
         $this->setReflectionPropertyValue('Host', 'smtp://smtp.example.com:26');
         $this->setReflectionPropertyValue('analyticsDetailLevel', AnalyticsDetailLevel::Info);
-
-        $this->controller->shouldReceive('stopChildSpan')
-                         ->once();
 
         $this->controller->shouldReceive('getTraceID')
                          ->once()
@@ -531,9 +510,6 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->setReflectionPropertyValue('Host', 'smtps://smtp1.example.com:587');
         $this->setReflectionPropertyValue('analyticsDetailLevel', AnalyticsDetailLevel::Info);
 
-        $this->controller->shouldReceive('stopChildSpan')
-                         ->once();
-
         $this->controller->shouldReceive('getTraceID')
                          ->once()
                          ->andReturn('bc5bfcc7-8d8d-4e59-b4be-7453b97410d');
@@ -613,9 +589,6 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->setReflectionPropertyValue('MIMEBody', 'full mime body');
         $this->setReflectionPropertyValue('Host', 'smtps://smtp1.example.com:465');
         $this->setReflectionPropertyValue('analyticsDetailLevel', AnalyticsDetailLevel::Info);
-
-        $this->controller->shouldReceive('stopChildSpan')
-                         ->once();
 
         $this->controller->shouldReceive('getTraceID')
                          ->once()
@@ -701,9 +674,6 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->setReflectionPropertyValue('MIMEBody', $string . 'E984TBDFDAKJF');
         $this->setReflectionPropertyValue('analyticsDetailLevel', AnalyticsDetailLevel::Detailed);
         $this->setReflectionPropertyValue('SMTPOptions', [ 'SMTPExtra' => 'extra_value' ]);
-
-        $this->controller->shouldReceive('stopChildSpan')
-                         ->once();
 
         $this->controller->shouldReceive('getTraceID')
                          ->once()
@@ -804,9 +774,6 @@ class PHPMailerAfterSendingTest extends PHPMailerTestCase
         $this->setReflectionPropertyValue('MIMEBody', $string . 'E984TBDFDAKJF');
         $this->setReflectionPropertyValue('analyticsDetailLevel', AnalyticsDetailLevel::Full);
         $this->setReflectionPropertyValue('SMTPOptions', [ 'SMTPExtra' => 'extra_value' ]);
-
-        $this->controller->shouldReceive('stopChildSpan')
-                         ->once();
 
         $this->controller->shouldReceive('getTraceID')
                          ->once()

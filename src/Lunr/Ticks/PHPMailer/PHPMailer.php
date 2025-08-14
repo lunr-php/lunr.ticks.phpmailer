@@ -13,6 +13,7 @@ use Lunr\Ticks\AnalyticsDetailLevel;
 use Lunr\Ticks\EventLogging\EventLoggerInterface;
 use Lunr\Ticks\TracingControllerInterface;
 use Lunr\Ticks\TracingInfoInterface;
+use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer as BaseMailer;
 use RuntimeException;
 
@@ -114,7 +115,70 @@ class PHPMailer extends BaseMailer
 
         $this->tracingController->startChildSpan();
 
-        return parent::send();
+        try
+        {
+            $return = parent::send();
+        }
+        catch (Exception $e)
+        {
+            $this->failureHook();
+
+            $this->tracingController->stopChildSpan();
+
+            throw $e;
+        }
+
+        if ($return === FALSE)
+        {
+            $this->failureHook();
+        }
+
+        $this->tracingController->stopChildSpan();
+
+        return $return;
+    }
+
+    /**
+     * Hook for when the email failed.
+     *
+     * @return void
+     */
+    protected function failureHook(): void
+    {
+        // phpcs:ignore Lunr.NamingConventions.CamelCapsVariableName
+        if ($this->Mailer !== 'smtp')
+        {
+            $this->afterSending(
+                FALSE,
+                $this->to, // @phpstan-ignore argument.type
+                $this->cc, // @phpstan-ignore argument.type
+                $this->bcc, // @phpstan-ignore argument.type
+                $this->Subject, // phpcs:ignore Lunr.NamingConventions.CamelCapsVariableName
+                $this->MIMEBody,
+                $this->From, // phpcs:ignore Lunr.NamingConventions.CamelCapsVariableName
+                []
+            );
+            return;
+        }
+
+        foreach ([ $this->to, $this->cc, $this->bcc ] as $toGroup)
+        {
+            foreach ($toGroup as $to)
+            {
+                $this->afterSending(
+                    FALSE,
+                    [ $to[0], $to[1] ], // @phpstan-ignore-line offsetAccess.nonOffsetAccessible
+                    [],
+                    [],
+                    $this->Subject, // phpcs:ignore Lunr.NamingConventions.CamelCapsVariableName
+                    $this->MIMEBody,
+                    $this->From, // phpcs:ignore Lunr.NamingConventions.CamelCapsVariableName
+                    []
+                );
+            }
+        }
+
+        return;
     }
 
     /**
@@ -219,8 +283,6 @@ class PHPMailer extends BaseMailer
         $event->addFields($fields);
         $event->recordTimestamp();
         $event->record();
-
-        $this->tracingController->stopChildSpan();
     }
 
     /**
